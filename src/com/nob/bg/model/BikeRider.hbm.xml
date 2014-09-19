@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.nob.bg.model.BikeRider" table="bike_rider">
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="userName" type="string" column="user_name"/>
+        <property name="password" type="string" column="password"/>
+        <many-to-one name="person" class="com.nob.bg.model.Person" column="person_id"/>
+        <set name="bikeRides" inverse="true">
+            <key column="bike_rider_id" not-null="true"/>
+            <one-to-many class="com.nob.bg.model.BikeRide"/>
+        </set>
+        <set name="bikes" inverse="true">
+            <key column="bike_rider_id" not-null="true"/>
+            <one-to-many class="com.nob.bg.model.Bike"/>
+        </set>
+    </class>
+</hibernate-mapping>

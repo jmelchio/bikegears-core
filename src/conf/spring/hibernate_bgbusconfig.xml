@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <aop:aspectj-autoproxy />
+
+    <bean id="dataSourceMySQLTest"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/test" />
+        <property name="username" value="turboguy" />
+        <property name="password" value="flatout" />
+    </bean>
+
+    <bean id="mySessionFactory"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceMySQLTest" />
+        <property name="mappingResources">
+            <list>
+                <value>com/nob/bg/model/Bike.hbm.xml</value>
+                <value>com/nob/bg/model/BikeRide.hbm.xml</value>
+                <value>com/nob/bg/model/BikeRider.hbm.xml</value>
+                <value>com/nob/bg/model/BikeRideType.hbm.xml</value>
+                <value>com/nob/bg/model/BikeType.hbm.xml</value>
+                <value>com/nob/bg/model/Person.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
+                <prop key="current_session_context_class">thread</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="bgDAO" class="com.nob.bg.dao.hibernate.BikeGearsHibernateDAO">
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+
+    <bean id="bgReportDAO" class="com.nob.bg.dao.jdbc.BikeGearsReportJdbcDAO">
+        <property name="dataSource" ref="dataSourceMySQLTest"/>
+    </bean>
+    
+    <bean id="service" class="com.nob.bg.service.BikeGearsServiceImpl">
+        <property name="bgDAO" ref="bgDAO"/>
+        <property name="bgReportDAO" ref="bgReportDAO"/>
+    </bean>
+
+    <bean id="loggingBeforeAdvisor" class="com.nob.bg.aop.advice.LoggingAdvice" />
+
+    <bean id="profileAdvisor" class="com.nob.bg.aop.advice.ProfileAdvice" />
+
+    <bean id="blConcernsPointcut" class="com.nob.bg.aop.pointcut.BLConcerns" />
+
+    <bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="myTxManager">
+        <tx:attributes>
+            <tx:method name="create*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <!--  <tx:method name="get*For*" propagation="REQUIRED" /> -->
+            <tx:method name="*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="bikeGearsServiceMethods" expression="execution(public * com.nob.bg.service.BikeGearsService.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="bikeGearsServiceMethods" />
+    </aop:config>
+
+    <bean id="throwsDataAccessExInterceptor"
+        class="com.nob.bg.interceptors.ThrowsDataAccessExceptionAdvice">
+    </bean>
+</beans>

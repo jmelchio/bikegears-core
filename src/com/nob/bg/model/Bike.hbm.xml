@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.nob.bg.model.Bike" table="bike">
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="brand" type="string" column="brand"/>
+        <property name="model" type="string" column="model"/>
+        <property name="year" type="int" column="year"/>
+        <property name="color" type="string" column="color"/>
+        <property name="description" type="string" column="description"/>
+        <many-to-one name="bikeType" column="type_id" class="com.nob.bg.model.BikeType"/>
+        <many-to-one name="bikeRider" column="bike_rider_id" class="com.nob.bg.model.BikeRider"/>
+    </class>
+</hibernate-mapping>
