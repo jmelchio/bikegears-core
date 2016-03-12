@@ -193,18 +193,16 @@ public class BikeGearsHibernateDAO extends HibernateDaoSupport implements
                 .get(BikeRideType.class, id);
     }
 
-    @SuppressWarnings("unchecked")
     public Collection<BikeRideType> getBikeRideTypes() {
-        return getHibernateTemplate().find("from BikeRideType");
+        return (Collection<BikeRideType>) getHibernateTemplate().find("from BikeRideType");
     }
 
     public BikeRider getBikeRiderById(Long id) {
         return (BikeRider) getHibernateTemplate().get(BikeRider.class, id);
     }
 
-    @SuppressWarnings("unchecked")
     public Collection<BikeRider> getBikeRiders() {
-        return getHibernateTemplate().find("from BikeRider");
+        return (Collection<BikeRider>)getHibernateTemplate().find("from BikeRider");
     }
 
     @SuppressWarnings("unchecked")
@@ -252,17 +250,14 @@ public class BikeGearsHibernateDAO extends HibernateDaoSupport implements
         return (BikeType) getHibernateTemplate().get(BikeType.class, id);
     }
 
-    @SuppressWarnings("unchecked")
     public Collection<BikeType> getBikeTypes() {
-        return getHibernateTemplate().find("from BikeType");
+        return (Collection<BikeType>) getHibernateTemplate().find("from BikeType");
     }
 
-    @SuppressWarnings("unchecked")
     public Collection<Bike> getBikes() {
-        return getHibernateTemplate().find("from Bike");
+        return (Collection<Bike>) getHibernateTemplate().find("from Bike");
     }
 
-    @SuppressWarnings("unchecked")
     public Collection<Bike> getBikesForRider(final BikeRider rider) {
         return (Collection<Bike>) getHibernateTemplate().execute(
                 new HibernateCallback() {
@@ -284,39 +279,8 @@ public class BikeGearsHibernateDAO extends HibernateDaoSupport implements
         return getBikesForRider(rider);
     }
 
-    public Collection<DistToDate> getDistToDateForPerson(Person person) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public Collection<DistToDate> getDistToDateForPersonById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public Collection<MonthlyStats> getMonthComparisonForPerson(Person person) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public Collection<MonthlyStats> getMonthComparisonForPersonById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public Collection<MonthlyStats> getMonthlyStatsForPerson(Person person) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public Collection<MonthlyStats> getMonthlyStatsForPersonById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @SuppressWarnings("unchecked")
     public Collection<Person> getPeople() {
-        return getHibernateTemplate().find("from Person");
+        return (Collection<Person>) getHibernateTemplate().find("from Person");
     }
 
     public Person getPersonById(Long id) {

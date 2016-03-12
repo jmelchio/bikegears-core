@@ -9,26 +9,20 @@
 
 package com.nob.bg.dao.mapper;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-
-import com.nob.bg.model.Bike;
-import com.nob.bg.model.BikeRide;
-import com.nob.bg.model.BikeRideType;
-import com.nob.bg.model.BikeRider;
-import com.nob.bg.model.BikeType;
-import com.nob.bg.model.Person;
+import com.nob.bg.model.*;
 import com.nob.bg.model.reports.DistToDate;
 import com.nob.bg.model.reports.MonthlyStats;
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author jorismelchior
  */
 public class RowMappers {
-    public static ParameterizedRowMapper<BikeRide> BIKE_RIDE_ROWMAPPER = new ParameterizedRowMapper<BikeRide>() {
+    public static RowMapper<BikeRide> BIKE_RIDE_ROWMAPPER = new RowMapper<BikeRide>() {
         public BikeRide mapRow(ResultSet rs, int rowNum) throws SQLException {
             BikeRide ride = new BikeRide();
             ride.setAverageHr(rs.getInt("average_hr"));
@@ -46,7 +40,7 @@ public class RowMappers {
         }
     };
     
-    public static ParameterizedRowMapper<BikeRideType> BIKE_RIDE_TYPE_ROWMAPPER = new ParameterizedRowMapper<BikeRideType>() {
+    public static RowMapper<BikeRideType> BIKE_RIDE_TYPE_ROWMAPPER = new RowMapper<BikeRideType>() {
         public BikeRideType mapRow(ResultSet rs, int rowNum) throws SQLException {
             BikeRideType brType = new BikeRideType();
             brType.setId(rs.getLong("id"));
@@ -57,7 +51,7 @@ public class RowMappers {
         }
     };
     
-    public static ParameterizedRowMapper<BikeRider> BIKE_RIDER_ROWMAPPER = new ParameterizedRowMapper<BikeRider>() {
+    public static RowMapper<BikeRider> BIKE_RIDER_ROWMAPPER = new RowMapper<BikeRider>() {
         public BikeRider mapRow(ResultSet rs, int rowNum) throws SQLException {
             BikeRider rider = new BikeRider();
             rider.setId(rs.getLong("id"));
@@ -68,7 +62,7 @@ public class RowMappers {
         }
     };
     
-    public static ParameterizedRowMapper<Bike> BIKE_ROWMAPPER = new ParameterizedRowMapper<Bike>() {
+    public static RowMapper<Bike> BIKE_ROWMAPPER = new RowMapper<Bike>() {
         public Bike mapRow(ResultSet rs, int rowNum) throws SQLException {
             Bike bike = new Bike();
             bike.setId(rs.getLong("id"));
@@ -82,7 +76,7 @@ public class RowMappers {
         }
     };
     
-    public static ParameterizedRowMapper<BikeType> BIKE_TYPE_ROWMAPPER = new ParameterizedRowMapper<BikeType>() {
+    public static RowMapper<BikeType> BIKE_TYPE_ROWMAPPER = new RowMapper<BikeType>() {
         public BikeType mapRow(ResultSet rs, int rowNum) throws SQLException {
             BikeType bType = new BikeType();
             bType.setId(rs.getLong("id"));
@@ -93,7 +87,7 @@ public class RowMappers {
         }
     };
     
-    public static ParameterizedRowMapper<DistToDate> DIST_TO_DATE_ROWMAPPER = new ParameterizedRowMapper<DistToDate>() {
+    public static RowMapper<DistToDate> DIST_TO_DATE_ROWMAPPER = new RowMapper<DistToDate>() {
         public DistToDate mapRow(ResultSet rs, int rowNum) throws SQLException {
             DistToDate mStats = new DistToDate();
             mStats.setAvgDistance(rs.getFloat("Avg Dist"));
@@ -107,7 +101,7 @@ public class RowMappers {
         }
     };
     
-    public static ParameterizedRowMapper<MonthlyStats> MONTHLY_STATS_ROWMAPPER = new ParameterizedRowMapper<MonthlyStats>() {
+    public static RowMapper<MonthlyStats> MONTHLY_STATS_ROWMAPPER = new RowMapper<MonthlyStats>() {
         public MonthlyStats mapRow(ResultSet rs, int rowNum) throws SQLException {
             MonthlyStats mStats = new MonthlyStats();
             mStats.setAvgDistance(rs.getFloat("Avg Dist"));
@@ -121,7 +115,7 @@ public class RowMappers {
         }
     };
     
-    public static ParameterizedRowMapper<Person> PERSON_ROWMAPPER = new ParameterizedRowMapper<Person>() {
+    public static RowMapper<Person> PERSON_ROWMAPPER = new RowMapper<Person>() {
         public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
             Person person = new Person();
             person.setId(rs.getLong("id"));

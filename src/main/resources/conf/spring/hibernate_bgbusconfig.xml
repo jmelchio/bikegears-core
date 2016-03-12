@@ -24,12 +24,12 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="dataSource" ref="dataSourceMySQLTest" />
         <property name="mappingResources">
             <list>
-                <value>com/nob/bg/model/Bike.hbm.xml</value>
-                <value>com/nob/bg/model/BikeRide.hbm.xml</value>
-                <value>com/nob/bg/model/BikeRider.hbm.xml</value>
-                <value>com/nob/bg/model/BikeRideType.hbm.xml</value>
-                <value>com/nob/bg/model/BikeType.hbm.xml</value>
-                <value>com/nob/bg/model/Person.hbm.xml</value>
+                <value>conf/hibernate/Bike.hbm.xml</value>
+                <value>conf/hibernate/BikeRide.hbm.xml</value>
+                <value>conf/hibernate/BikeRider.hbm.xml</value>
+                <value>conf/hibernate/BikeRideType.hbm.xml</value>
+                <value>conf/hibernate/BikeType.hbm.xml</value>
+                <value>conf/hibernate/Person.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">

@@ -3,16 +3,15 @@
  */
 package com.nob.bg.dao.jdbc;
 
-import java.util.List;
-
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-
 import com.nob.bg.dao.BikeGearsReportDAO;
 import com.nob.bg.dao.mapper.RowMappers;
 import com.nob.bg.model.BikeRider;
 import com.nob.bg.model.reports.DistToDate;
 import com.nob.bg.model.reports.MonthlyStats;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+
+import java.util.List;
 
 /**
  * @author jorismelchior
@@ -33,7 +32,7 @@ public class BikeGearsReportJdbcDAO extends JdbcDaoSupport implements BikeGearsR
     }
 
     public List<DistToDate> getDistToDateForBikeRiderById(Long id) {
-        SimpleJdbcTemplate jt = new SimpleJdbcTemplate(this.getDataSource());
+        JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         Object[] args = { id };
         return jt
                 .query(
@@ -46,7 +45,7 @@ public class BikeGearsReportJdbcDAO extends JdbcDaoSupport implements BikeGearsR
     }
 
     public List<MonthlyStats> getMonthlyStatsForBikeRiderById(Long id) {
-        SimpleJdbcTemplate jt = new SimpleJdbcTemplate(this.getDataSource());
+        JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         Object[] args = { id };
         return jt
                 .query(
@@ -58,7 +57,7 @@ public class BikeGearsReportJdbcDAO extends JdbcDaoSupport implements BikeGearsR
     }
 
     public List<MonthlyStats> getMonthComparisonForBikeRiderById(Long id) {
-        SimpleJdbcTemplate jt = new SimpleJdbcTemplate(this.getDataSource());
+        JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         Object[] args = { id };
         return jt
                 .query(
@@ -70,5 +69,6 @@ public class BikeGearsReportJdbcDAO extends JdbcDaoSupport implements BikeGearsR
                         RowMappers.MONTHLY_STATS_ROWMAPPER, args);
     }
 
-
 }
+
+// That's All Folks !!
