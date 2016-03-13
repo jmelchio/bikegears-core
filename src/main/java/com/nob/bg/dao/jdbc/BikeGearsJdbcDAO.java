@@ -10,7 +10,6 @@
 package com.nob.bg.dao.jdbc;
 
 import com.nob.bg.dao.BikeGearsDAO;
-import com.nob.bg.dao.mapper.RowMappers;
 import com.nob.bg.model.*;
 import com.nob.bg.model.dto.LoginDTO;
 import org.springframework.dao.DataAccessException;
@@ -34,7 +33,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         Object[] args = { login.getUserName(), login.getPassword() };
         return jt.queryForObject(
                 "select * from bike_rider where user_name=? and password=?",
-                RowMappers.BIKE_RIDER_ROWMAPPER, args);
+                BgRowMappers.BIKE_RIDER_ROWMAPPER, args);
     }
 
     public Bike createBike(Bike bike) {
@@ -60,7 +59,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         Object[] args = { id };
         return jt.queryForObject("select * from bike where id = ?",
-                RowMappers.BIKE_ROWMAPPER, args);
+                BgRowMappers.BIKE_ROWMAPPER, args);
     }
 
     public void deleteBike(Bike bike) {
@@ -75,7 +74,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
 
     public List<Bike> getBikes() {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
-        return jt.query("select * from bike", RowMappers.BIKE_ROWMAPPER);
+        return jt.query("select * from bike", BgRowMappers.BIKE_ROWMAPPER);
     }
 
     public List<Bike> getBikesForRider(BikeRider rider) {
@@ -115,7 +114,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         Object[] args = { id };
         return jt.queryForObject("select * from bike_ride where id = ?",
-                RowMappers.BIKE_RIDE_ROWMAPPER, args);
+                BgRowMappers.BIKE_RIDE_ROWMAPPER, args);
     }
 
     public void deleteBikeRide(BikeRide ride) {
@@ -134,10 +133,10 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         // unfortunately.
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         if (rowLimit != null) {
-            jt.setFetchSize(rowLimit.intValue());
+            jt.setFetchSize(rowLimit);
         }
         return jt.query("select * from bike_ride",
-                RowMappers.BIKE_RIDE_ROWMAPPER);
+                BgRowMappers.BIKE_RIDE_ROWMAPPER);
     }
 
     public List<BikeRide> getBikeRidesForRider(BikeRider rider, Integer rowLimit) {
@@ -165,9 +164,9 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         Object[] args = { id };
         List<BikeRideType> results = jt.query(
                 "select * from bike_ride_type where id = ?",
-                RowMappers.BIKE_RIDE_TYPE_ROWMAPPER, args);
+                BgRowMappers.BIKE_RIDE_TYPE_ROWMAPPER, args);
         if (results != null && results.size() > 0) {
-            return (BikeRideType) results.get(0);
+            return results.get(0);
         } else {
             return null;
         }
@@ -186,7 +185,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
     public List<BikeRideType> getBikeRideTypes() {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         return jt.query("select * from bike_ride_type",
-                RowMappers.BIKE_RIDE_TYPE_ROWMAPPER);
+                BgRowMappers.BIKE_RIDE_TYPE_ROWMAPPER);
     }
 
     public BikeRider createBikeRider(BikeRider rider) {
@@ -210,7 +209,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         Object[] args = { id };
         return jt.queryForObject("select * from bike_rider where id = ?",
-                RowMappers.BIKE_RIDER_ROWMAPPER, args);
+                BgRowMappers.BIKE_RIDER_ROWMAPPER, args);
     }
 
     public void deleteBikeRider(BikeRider rider) {
@@ -226,7 +225,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
     public List<BikeRider> getBikeRiders() {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         return jt.query("select * from bike_rider",
-                RowMappers.BIKE_RIDER_ROWMAPPER);
+                BgRowMappers.BIKE_RIDER_ROWMAPPER);
     }
 
     public BikeType createBikeType(BikeType bikeType) {
@@ -250,9 +249,9 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         Object[] args = { id };
         List<BikeType> results = jt.query(
                 "select * from bike_type where id = ?",
-                RowMappers.BIKE_TYPE_ROWMAPPER, args);
+                BgRowMappers.BIKE_TYPE_ROWMAPPER, args);
         if (results != null && results.size() > 0) {
-            return (BikeType) results.get(0);
+            return results.get(0);
         } else {
             return null;
         }
@@ -271,7 +270,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
     public List<BikeType> getBikeTypes() {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         return jt.query("select * from bike_type",
-                RowMappers.BIKE_TYPE_ROWMAPPER);
+                BgRowMappers.BIKE_TYPE_ROWMAPPER);
     }
 
     public Person createPerson(Person person) {
@@ -287,7 +286,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         Object[] args = { id };
         return jt.queryForObject("select * from person where id = ?",
-                RowMappers.PERSON_ROWMAPPER, args);
+                BgRowMappers.PERSON_ROWMAPPER, args);
     }
 
     public void changePerson(Person person) {
@@ -300,7 +299,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
 
     public List<Person> getPeople() {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
-        return jt.query("select * from person", RowMappers.PERSON_ROWMAPPER);
+        return jt.query("select * from person", BgRowMappers.PERSON_ROWMAPPER);
     }
 
     public void deletePerson(Person person) {
@@ -317,7 +316,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         Object[] args = { bikeRiderId };
         return jt.query("select * from bike where bike_rider_id = ?",
-                RowMappers.BIKE_ROWMAPPER, args);
+                BgRowMappers.BIKE_ROWMAPPER, args);
     }
 
     @SuppressWarnings("unchecked")
@@ -325,11 +324,11 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
             Integer rowLimit) {
         JdbcTemplate jt = new JdbcTemplate(this.getDataSource());
         if (rowLimit != null) {
-            jt.setFetchSize(rowLimit.intValue());
+            jt.setFetchSize(rowLimit);
         }
         Object[] args = { bikeRiderId };
         return jt.query("select * from bike_ride where bike_rider_id = ?",
-                args, RowMappers.BIKE_RIDE_ROWMAPPER);
+                args, BgRowMappers.BIKE_RIDE_ROWMAPPER);
     }
 
     public Bike getBikeForRide(BikeRide ride) {
@@ -355,7 +354,7 @@ public class BikeGearsJdbcDAO extends JdbcDaoSupport implements BikeGearsDAO {
         Object[] args1 = { id };
         try {
             return jt.queryForObject("select * from person where id = ?",
-                    RowMappers.PERSON_ROWMAPPER, args1);
+                    BgRowMappers.PERSON_ROWMAPPER, args1);
         } catch (DataAccessException dae) {
             return null;
         }

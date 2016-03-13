@@ -6,7 +6,7 @@
 
     <groupId>com.nob.bikegears</groupId>
     <artifactId>bikegears-core</artifactId>
-    <version>0.9.1</version>
+    <version>0.9.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>

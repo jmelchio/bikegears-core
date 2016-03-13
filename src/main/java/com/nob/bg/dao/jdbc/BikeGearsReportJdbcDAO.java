@@ -4,7 +4,6 @@
 package com.nob.bg.dao.jdbc;
 
 import com.nob.bg.dao.BikeGearsReportDAO;
-import com.nob.bg.dao.mapper.RowMappers;
 import com.nob.bg.model.BikeRider;
 import com.nob.bg.model.reports.DistToDate;
 import com.nob.bg.model.reports.MonthlyStats;
@@ -41,7 +40,7 @@ public class BikeGearsReportJdbcDAO extends JdbcDaoSupport implements BikeGearsR
                                 + ", count(*) '# Rides', dayofyear(curdate()) 'DOY' from bike_ride"
                                 + " where bike_rider_id = ? and dayofyear(date) <= dayofyear(curdate())"
                                 + " and year(date) <= year(curdate()) group by year(date)",
-                        RowMappers.DIST_TO_DATE_ROWMAPPER, args);
+                        BgRowMappers.DIST_TO_DATE_ROWMAPPER, args);
     }
 
     public List<MonthlyStats> getMonthlyStatsForBikeRiderById(Long id) {
@@ -53,7 +52,7 @@ public class BikeGearsReportJdbcDAO extends JdbcDaoSupport implements BikeGearsR
                                 + ", avg(distance_km) 'Avg Dist', max(distance_km) 'Max Dist', count(*) Rides "
                                 + " from bike_ride where bike_rider_id = ? group by year(date), month(date) "
                                 + " order by year(date), month(date)",
-                        RowMappers.MONTHLY_STATS_ROWMAPPER, args);
+                        BgRowMappers.MONTHLY_STATS_ROWMAPPER, args);
     }
 
     public List<MonthlyStats> getMonthComparisonForBikeRiderById(Long id) {
@@ -66,7 +65,7 @@ public class BikeGearsReportJdbcDAO extends JdbcDaoSupport implements BikeGearsR
                                 + " from bike_ride where bike_rider_id = ? and month(date) = month(curdate()) "
                                 + " and dayofmonth(date) <= dayofmonth(curdate()) group by year(date), month(date) "
                                 + " order by year(date), month(date)",
-                        RowMappers.MONTHLY_STATS_ROWMAPPER, args);
+                        BgRowMappers.MONTHLY_STATS_ROWMAPPER, args);
     }
 
 }

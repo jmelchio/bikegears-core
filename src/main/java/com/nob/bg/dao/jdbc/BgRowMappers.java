@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package com.nob.bg.dao.mapper;
+package com.nob.bg.dao.jdbc;
 
 import com.nob.bg.model.*;
 import com.nob.bg.model.reports.DistToDate;
@@ -21,14 +21,14 @@ import java.sql.SQLException;
  *
  * @author jorismelchior
  */
-public class RowMappers {
+public class BgRowMappers {
     public static RowMapper<BikeRide> BIKE_RIDE_ROWMAPPER = new RowMapper<BikeRide>() {
         public BikeRide mapRow(ResultSet rs, int rowNum) throws SQLException {
             BikeRide ride = new BikeRide();
             ride.setAverageHr(rs.getInt("average_hr"));
             ride.setCaloriesBurnt(rs.getInt("calories_burnt"));
             ride.setDate(rs.getDate("date"));
-            ride.setDistanceKm(new Float(rs.getFloat("distance_km")));
+            ride.setDistanceKm(rs.getFloat("distance_km"));
             ride.setFinishLocation(rs.getString("finish_location"));
             ride.setId(rs.getLong("id"));
             ride.setJournal(rs.getString("journal"));
@@ -128,6 +128,6 @@ public class RowMappers {
     };
     
     /** Creates a new instance of RowMapperFactory */
-    public RowMappers() {
+    public BgRowMappers() {
     }
 }

@@ -88,4 +88,5 @@ public interface BikeGearsService {
     Collection<MonthlyStats> getMonthComparisonForPersonById(Long id);
 
 }
+
 /* That's All Folks !! */
