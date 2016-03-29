@@ -6,20 +6,19 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.dao.DataAccessException;
 
 @Aspect
 public class LoggingAdvice {
     @Before("com.nob.bg.aop.pointcut.BLConcerns.service()")
     public void beforeMethodCallLog(JoinPoint joinPoint) {
-        String methodName = joinPoint.getSignature().getName().toString();
+        String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
-        StringBuffer logInfo = new StringBuffer(methodName + ": ");
+        StringBuilder logInfo = new StringBuilder(methodName).append(": ");
         for (int i = 0; i < args.length; i++) {
             if(i == args.length - 1) {
                 logInfo.append(args[i]);
             } else {
-                logInfo.append(args[i] + ", ");
+                logInfo.append(args[i]).append(", ");
             }
         }
         Log log = LogFactory.getLog(joinPoint.getTarget().getClass());
@@ -27,15 +26,15 @@ public class LoggingAdvice {
     }
     
     @AfterThrowing(pointcut="com.nob.bg.aop.pointcut.BLConcerns.dao()", throwing="ex")
-    public void afterThrowingLog(JoinPoint joinPoint, DataAccessException ex) {
-        String methodName = joinPoint.getSignature().getName().toString();
+    public void afterThrowingLog(JoinPoint joinPoint, Exception ex) {
+        String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
-        StringBuffer logInfo = new StringBuffer("Exception thrown calling " + methodName + ": ");
+        StringBuilder logInfo = new StringBuilder("Exception thrown calling ").append(methodName).append(": ");
         for (int i = 0; i < args.length; i++) {
             if(i == args.length - 1) {
                 logInfo.append(args[i]);
             } else {
-                logInfo.append(args[i] + ", ");
+                logInfo.append(args[i]).append(", ");
             }
         }
         logInfo.append(" - ").append(ex.getMessage());

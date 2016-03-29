@@ -45,8 +45,7 @@ public interface BikeGearsService {
     void deleteBikeRideById(Long id);
     Collection<BikeRide> getBikeRides(Integer rowLimit);
     Collection<BikeRide> getBikeRidesForRider(BikeRider rider, Integer rowLimit);
-    Collection<BikeRide> getBikeRidesForRiderById(Long bikeRiderId,
-            Integer rowLimit);
+    Collection<BikeRide> getBikeRidesForRiderById(Long bikeRiderId, Integer rowLimit);
 
     void createBikeRideType(BikeRideType rideType);
     void changeBikeRideType(BikeRideType rideType);
