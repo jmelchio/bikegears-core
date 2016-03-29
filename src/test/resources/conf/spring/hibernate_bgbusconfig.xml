@@ -14,9 +14,9 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <bean id="dataSourceMySQLTest"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/test" />
-        <property name="username" value="turboguy" />
-        <property name="password" value="flatout" />
+        <property name="url" value="jdbc:mysql://bikegearstest1.cqqutugyc1vt.us-east-1.rds.amazonaws.com:3306/test" />
+        <property name="username" value="jorisadmin" />
+        <property name="password" value="jori1304" />
     </bean>
 
     <bean id="mySessionFactory"

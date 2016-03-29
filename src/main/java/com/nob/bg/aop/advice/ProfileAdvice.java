@@ -22,7 +22,7 @@ import org.aspectj.lang.annotation.Aspect;
 @Aspect()
 public class ProfileAdvice {
     
-    /** Creates a new instance of ProfileAdvide */
+    /** Creates a new instance of ProfileAdvice */
     public ProfileAdvice() {
     }
     
@@ -32,7 +32,7 @@ public class ProfileAdvice {
         String method = pj.getSignature().getName();
         Class<? extends Object> target = pj.getTarget().getClass();
         Object result = null;
-        long after = 0l;
+        long after;
         long before = System.currentTimeMillis();
         try {
             result = pj.proceed();
